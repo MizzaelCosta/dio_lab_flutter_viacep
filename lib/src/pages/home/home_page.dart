@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     InputText(
+                      label: 'Cep',
                       editingController: _cep,
                       homeController: _controller,
                       update: update,

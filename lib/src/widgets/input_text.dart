@@ -10,19 +10,22 @@ typedef UpdateFunction = void Function(bool loading,
     {Cep? response, required String text});
 
 class InputText extends StatelessWidget {
-  const InputText(
-      {super.key,
-      required this.editingController,
-      required this.update,
-      required this.homeController,
-      this.validator,
-      this.formatter});
+  const InputText({
+    super.key,
+    required this.editingController,
+    required this.update,
+    required this.homeController,
+    this.validator,
+    this.formatter,
+    this.label,
+  });
 
   final TextEditingController editingController;
   final UpdateFunction update;
   final HomeController homeController;
   final List<Formatter>? formatter;
   final StringFunctionCallback validator;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,10 @@ class InputText extends StatelessWidget {
       validator: validator,
       inputFormatters: formatter,
       decoration: InputDecoration(
+        hintText: label,
         suffixIcon: SearchCep(
           update: update,
-          cep: editingController.text,
+          cep: editingController,
           controller: homeController,
         ),
       ),

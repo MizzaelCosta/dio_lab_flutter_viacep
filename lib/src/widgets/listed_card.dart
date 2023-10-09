@@ -1,3 +1,4 @@
+import 'package:dio_lab_flutter_viacep/src/widgets/edit_info.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/listed/listed_controller.dart';
@@ -34,16 +35,15 @@ class ListedCard extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () {
-                  //TODO implementar tela de edição (rua/complemento)
-                  controller.updateCep(
-                      controller.cepList[index].cep.replaceAll('-', ''),
-                      controller.cepList[index]
-                          .copyWith(
-                              logradouro: 'Rua editada',
-                              complemento: 'Complemento editado')
-                          .toMap());
-                  update();
+                onPressed: () async {
+                  return showModalBottomSheet(
+                    context: context,
+                    builder: (context) => EditInfo(
+                      index: index,
+                      controller: controller,
+                      update: update,
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.edit),
               ),
