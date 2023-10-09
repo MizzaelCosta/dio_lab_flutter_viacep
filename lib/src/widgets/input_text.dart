@@ -1,4 +1,5 @@
 import 'package:dio_lab_flutter_viacep/src/pages/home/home_controller.dart';
+import 'package:dio_lab_flutter_viacep/src/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../models/cep.dart';
@@ -22,25 +23,30 @@ class InputText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //TODO implementar formaters/ validators
+      //TODO implementar formaters
       keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
       controller: cep,
       decoration: InputDecoration(
-          suffixIcon: IconButton(
-        icon: const Icon(
-          Icons.search,
+        suffixIcon: IconButton(
+          icon: const Icon(
+            Icons.search,
+          ),
+          onPressed: () async {
+            update(true, text: cep.text);
+            final response = await controller.getCep(cep.text);
+            update(
+              false,
+              response: response,
+              text: empty,
+            );
+          },
         ),
-        onPressed: () async {
-          update(true, text: cep.text);
-          final response = await controller.getCep(cep.text);
-          update(
-            false,
-            response: response,
-            text: empty,
-          );
-        },
-      )),
+      ),
+      validator: Validator.length(
+        error: 'O Cep deve ter 8 dígitos.',
+        length: 8,
+      ),
     );
   }
 }
