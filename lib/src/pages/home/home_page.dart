@@ -52,45 +52,43 @@ class _HomePageState extends State<HomePage> {
         title: const Text('ViaCep'),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      children: [
-                        InputText(
-                          cep: _cep,
-                          controller: _controller,
-                          update: update,
-                        ),
-                      ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ListView(
+            children: [
+              Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    InputText(
+                      cep: _cep,
+                      controller: _controller,
+                      update: update,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Visibility(
-                    visible: _loading,
-                    child: const CircularProgressIndicator(),
-                  ),
-                  Visibility(
-                    visible: cep != null,
-                    child: (cep == null || cep!.erro)
-                        ? const Expanded(
-                            child: Text(
-                                'Cep NÃO encontrado. Verifique o CEP digitado.'),
-                          )
-                        : ShowCep(cep: cep),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              Visibility(
+                visible: _loading,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              Visibility(
+                visible: cep != null,
+                child: (cep == null || cep!.erro)
+                    ? const Center(
+                        child: Text(
+                            'Cep NÃO encontrado. Verifique o CEP digitado.'),
+                      )
+                    : ShowCep(cep: cep),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

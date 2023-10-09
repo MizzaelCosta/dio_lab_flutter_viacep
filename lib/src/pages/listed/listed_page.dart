@@ -48,6 +48,11 @@ class _ListedPageState extends State<ListedPage> {
                         children: [
                           Text(_controller.cepList[index].cep),
                           Text(_controller.cepList[index].logradouro),
+                          Visibility(
+                            visible:
+                                (_controller.cepList[index].complemento != ''),
+                            child: Text(_controller.cepList[index].complemento),
+                          ),
                         ]),
                   ),
                   Row(
