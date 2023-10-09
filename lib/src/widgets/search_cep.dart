@@ -9,13 +9,12 @@ class SearchCep extends StatelessWidget {
     required this.update,
     required this.cep,
     required this.controller,
-    required this.empty,
   });
 
   final UpdateFunction update;
-  final TextEditingController cep;
+  final String cep;
   final HomeController controller;
-  final String empty;
+  final String empty = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,8 @@ class SearchCep extends StatelessWidget {
         Icons.search,
       ),
       onPressed: () async {
-        update(true, text: cep.text);
-        final response = await controller.getCep(cep.text);
+        update(true, text: cep);
+        final response = await controller.getCep(cep);
         update(
           false,
           response: response,

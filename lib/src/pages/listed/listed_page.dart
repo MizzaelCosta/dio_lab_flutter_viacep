@@ -1,7 +1,7 @@
 import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../repositories/local/hive_repository.dart';
 import '../../widgets/listed_card.dart';
 
 class ListedPage extends StatefulWidget {
@@ -12,11 +12,12 @@ class ListedPage extends StatefulWidget {
 }
 
 class _ListedPageState extends State<ListedPage> {
-  final _controller = ListedController(HiveRepository());
+  late final ListedController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = context.read<ListedController>();
     update();
   }
 

@@ -12,32 +12,31 @@ typedef UpdateFunction = void Function(bool loading,
 class InputText extends StatelessWidget {
   const InputText(
       {super.key,
-      required this.cep,
+      required this.editingController,
       required this.update,
-      required this.controller,
+      required this.homeController,
       this.validator,
       this.formatter});
 
-  final TextEditingController cep;
+  final TextEditingController editingController;
   final UpdateFunction update;
-  final HomeController controller;
-  final String empty = '';
+  final HomeController homeController;
   final List<Formatter>? formatter;
   final StringFunctionCallback validator;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
-      controller: cep,
+      controller: editingController,
       validator: validator,
       inputFormatters: formatter,
       decoration: InputDecoration(
         suffixIcon: SearchCep(
           update: update,
-          cep: cep,
-          controller: controller,
-          empty: empty,
+          cep: editingController.text,
+          controller: homeController,
         ),
       ),
     );

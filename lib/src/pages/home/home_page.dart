@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final _cep = TextEditingController();
   late HomeController _controller;
-  bool _loading = false;
+  bool _isLoading = false;
   Cep? cep;
 
   @override
@@ -38,9 +38,9 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void update(bool newValue, {Cep? response, required String text}) {
+  void update(bool isLoading, {Cep? response, required String text}) {
     setState(() {
-      _loading = newValue;
+      _isLoading = isLoading;
       cep = response;
       _cep.text = text;
     });
@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     InputText(
-                      cep: _cep,
-                      controller: _controller,
+                      editingController: _cep,
+                      homeController: _controller,
                       update: update,
                       validator: Validator.length(
                         error: 'O Cep deve ter 8 dígitos.',
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
               ),
               Visibility(
-                visible: _loading,
+                visible: _isLoading,
                 child: const Center(
                   child: CircularProgressIndicator(),
                 ),

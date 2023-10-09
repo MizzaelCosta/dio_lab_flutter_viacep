@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'src/app.dart';
+import 'src/pages/listed/listed_controller.dart';
 import 'src/repositories/api/dio_repository.dart';
 
 void main() async {
@@ -24,7 +25,12 @@ void main() async {
               HiveRepository(),
             ),
           ),
-        )
+        ),
+        Provider<ListedController>(
+          create: (_) => ListedController(
+            HiveRepository(),
+          ),
+        ),
       ],
       child: const App(),
     ),
