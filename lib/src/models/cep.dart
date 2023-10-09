@@ -86,7 +86,7 @@ class Cep {
         erro: true);
   }
 
-  factory Cep.fromMap(Map<String, dynamic> map) {
+  factory Cep.fromMap(Map<dynamic, dynamic> map) {
     bool erro = false;
     if (map.containsKey('erro')) {
       erro = map['erro'];

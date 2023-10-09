@@ -5,9 +5,9 @@ class HiveRepository implements LocalRepository {
   final String boxName = 'storageBox';
 
   @override
-  Future<Map<String, dynamic>?> getCep(String key) async {
+  Future<Map<dynamic, dynamic>?> getCep(String key) async {
     final storage = await Hive.openBox(boxName);
-    Map<String, dynamic>? value = await storage.get(key);
+    final Map<dynamic, dynamic>? value = await storage.get(key);
 
     return value;
   }
