@@ -22,6 +22,7 @@ class InputText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //TODO implementar formaters/ validators
       keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
       controller: cep,

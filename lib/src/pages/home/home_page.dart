@@ -1,5 +1,6 @@
 import 'package:dio_lab_flutter_viacep/src/models/cep.dart';
 import 'package:dio_lab_flutter_viacep/src/pages/home/home_controller.dart';
+import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +29,13 @@ class _HomePageState extends State<HomePage> {
     _controller = context.read<HomeController>();
   }
 
+  @override
+  void dispose() {
+    _cep.dispose();
+    _formKey.currentState!.dispose();
+    super.dispose();
+  }
+
   void update(bool newValue, {Cep? response, required String text}) {
     setState(() {
       _loading = newValue;
@@ -44,42 +52,57 @@ class _HomePageState extends State<HomePage> {
         title: const Text('ViaCep'),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  children: [
-                    InputText(
-                      cep: _cep,
-                      controller: _controller,
-                      update: update,
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Column(
+                      children: [
+                        InputText(
+                          cep: _cep,
+                          controller: _controller,
+                          update: update,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Visibility(
+                    visible: _loading,
+                    child: const CircularProgressIndicator(),
+                  ),
+                  Visibility(
+                    visible: cep != null,
+                    child: (cep == null || cep!.erro)
+                        ? const Expanded(
+                            child: Text(
+                                'Cep NÃO encontrado. Verifique o CEP digitado.'),
+                          )
+                        : ShowCep(cep: cep),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Visibility(
-                visible: _loading,
-                child: const CircularProgressIndicator(),
-              ),
-              Visibility(
-                visible: cep != null,
-                child: (cep == null || cep!.erro)
-                    ? const Expanded(
-                        child: Text(
-                            'CEP NÃO encontrado. Verifique o CEP digitado.'),
-                      )
-                    : ShowCep(cep: cep),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ListedPage(),
+            ),
+          );
+        },
+        child: const Icon(Icons.list_alt_outlined),
       ),
     );
   }

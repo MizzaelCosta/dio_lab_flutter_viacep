@@ -19,9 +19,10 @@ class RequestService {
     }
 
     Cep cepFromApi = await _repository.getCep(cep);
-    await _storage.insertCep(cep, cepFromApi.toMap());
-    //TODO implementar inserção no Back4App
-
+    if (!cepFromApi.erro) {
+      await _storage.insertCep(cep, cepFromApi.toMap());
+      //TODO implementar inserção no Back4app
+    }
     return cepFromApi;
   }
 }

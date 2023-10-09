@@ -13,20 +13,27 @@ class HiveRepository implements LocalRepository {
   }
 
   @override
+  Future<List<Map<dynamic, dynamic>>> getAllCep() async {
+    final storage = await Hive.openBox(boxName);
+    final values = storage.values.cast<Map<dynamic, dynamic>>().toList();
+
+    return values;
+  }
+
+  @override
   Future<void> insertCep(String key, Map<String, dynamic> cep) async {
     final storage = await Hive.openBox(boxName);
     await storage.put(key, cep);
   }
 
   @override
-  Future<void> updateCep(String key, Map<String, dynamic> cep) async {
-    // TODO: implementar updateCep / Aguardando Tela de Ceps buscados
-    throw UnimplementedError();
+  Future<void> updateCep(String key, Map<dynamic, dynamic> cep) async {
+    insertCep(key, cep as Map<String, dynamic>);
   }
 
   @override
-  Future<void> deleteCep(String cep) {
-    // TODO: implementar deleteCep / Aguardando Tela de Ceps buscados
-    throw UnimplementedError();
+  Future<void> deleteCep(String key) async {
+    final storage = await Hive.openBox(boxName);
+    await storage.delete(key);
   }
 }
