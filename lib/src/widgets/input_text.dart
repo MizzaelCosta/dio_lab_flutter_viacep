@@ -4,6 +4,7 @@ import 'package:dio_lab_flutter_viacep/src/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 import '../models/cep.dart';
+import 'search_cep.dart';
 
 typedef UpdateFunction = void Function(bool loading,
     {Cep? response, required String text});
@@ -32,19 +33,11 @@ class InputText extends StatelessWidget {
       validator: validator,
       inputFormatters: formatter,
       decoration: InputDecoration(
-        suffixIcon: IconButton(
-          icon: const Icon(
-            Icons.search,
-          ),
-          onPressed: () async {
-            update(true, text: cep.text);
-            final response = await controller.getCep(cep.text);
-            update(
-              false,
-              response: response,
-              text: empty,
-            );
-          },
+        suffixIcon: SearchCep(
+          update: update,
+          cep: cep,
+          controller: controller,
+          empty: empty,
         ),
       ),
     );
