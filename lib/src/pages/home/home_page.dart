@@ -4,6 +4,8 @@ import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/formatter.dart';
+import '../../utils/validator.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/show_cep.dart';
 
@@ -65,6 +67,13 @@ class _HomePageState extends State<HomePage> {
                       cep: _cep,
                       controller: _controller,
                       update: update,
+                      validator: Validator.length(
+                        error: 'O Cep deve ter 8 dígitos.',
+                        length: 8,
+                      ),
+                      formatter: const [
+                        Formatter(),
+                      ],
                     ),
                   ],
                 ),
