@@ -2,6 +2,7 @@ import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../../repositories/local/hive_repository.dart';
+import '../../widgets/listed_card.dart';
 
 class ListedPage extends StatefulWidget {
   const ListedPage({super.key});
@@ -37,53 +38,10 @@ class _ListedPageState extends State<ListedPage> {
         child: ListView.builder(
           itemCount: _controller.cepList.length,
           itemBuilder: (context, index) {
-            return Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(_controller.cepList[index].cep),
-                          Text(_controller.cepList[index].logradouro),
-                          Visibility(
-                            visible:
-                                (_controller.cepList[index].complemento != ''),
-                            child: Text(_controller.cepList[index].complemento),
-                          ),
-                        ]),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          //TODO implementar tela de edição (rua/complemento)
-                          _controller.updateCep(
-                              _controller.cepList[index].cep
-                                  .replaceAll('-', ''),
-                              _controller.cepList[index]
-                                  .copyWith(
-                                      logradouro: 'Rua editada',
-                                      complemento: 'Complemento editado')
-                                  .toMap());
-                          update();
-                        },
-                        icon: const Icon(Icons.edit),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _controller.deleteCep(_controller.cepList[index].cep
-                              .replaceAll('-', ''));
-                          update();
-                        },
-                        icon: const Icon(Icons.delete),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            return ListedCard(
+              controller: _controller,
+              update: update,
+              index: index,
             );
           },
         ),
