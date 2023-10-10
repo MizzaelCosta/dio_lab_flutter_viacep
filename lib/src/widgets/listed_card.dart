@@ -1,7 +1,7 @@
-import 'package:dio_lab_flutter_viacep/src/widgets/edit_info.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/listed/listed_controller.dart';
+import 'edit_info.dart';
 
 class ListedCard extends StatelessWidget {
   const ListedCard(
@@ -35,13 +35,15 @@ class ListedCard extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () async {
-                  return showModalBottomSheet(
-                    context: context,
-                    builder: (context) => EditInfo(
-                      index: index,
-                      controller: controller,
-                      update: update,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditInfo(
+                        index: index,
+                        controller: controller,
+                        update: update,
+                      ),
                     ),
                   );
                 },

@@ -39,47 +39,53 @@ class _EditInfoState extends State<EditInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Form(
-              child: Column(
-                children: [
-                  EditText(
-                    controller: logradouro,
-                    label: 'Logradouro',
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  EditText(
-                    controller: complemento,
-                    label: 'Complemento',
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      widget.controller.updateCep(
-                          widget.controller.cepList[widget.index].cep
-                              .replaceAll('-', ''),
-                          widget.controller.cepList[widget.index]
-                              .copyWith(
-                                  logradouro: logradouro.text,
-                                  complemento: complemento.text)
-                              .toMap());
-                      widget.update();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Editar'),
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Editar Cep'),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ListView(
+            children: [
+              Form(
+                child: Column(
+                  children: [
+                    EditText(
+                      controller: logradouro,
+                      label: 'Logradouro',
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    EditText(
+                      controller: complemento,
+                      label: 'Complemento',
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        widget.controller.updateCep(
+                            widget.controller.cepList[widget.index].cep
+                                .replaceAll('-', ''),
+                            widget.controller.cepList[widget.index]
+                                .copyWith(
+                                    logradouro: logradouro.text,
+                                    complemento: complemento.text)
+                                .toMap());
+                        widget.update();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Editar'),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
