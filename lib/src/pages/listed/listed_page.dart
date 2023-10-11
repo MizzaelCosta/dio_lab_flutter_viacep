@@ -18,10 +18,13 @@ class _ListedPageState extends State<ListedPage> {
   void initState() {
     super.initState();
     _controller = context.read<ListedController>();
-    update();
+    _controller.listedUpdate = () {
+      listedUpdate();
+    };
+    listedUpdate();
   }
 
-  void update() async {
+  void listedUpdate() async {
     await _controller.getAllCep();
     setState(() {});
   }
@@ -40,8 +43,6 @@ class _ListedPageState extends State<ListedPage> {
           itemCount: _controller.cepList.length,
           itemBuilder: (context, index) {
             return ListedCard(
-              controller: _controller,
-              update: update,
               index: index,
             );
           },

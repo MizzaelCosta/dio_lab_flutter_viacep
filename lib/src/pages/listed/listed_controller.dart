@@ -6,6 +6,7 @@ class ListedController {
 
   var cepList = <Cep>[];
   final LocalRepository _repository;
+  late final Function listedUpdate;
 
   Future<void> updateCep(String key, Map<dynamic, dynamic> cep) async {
     await _repository.updateCep(key, cep);

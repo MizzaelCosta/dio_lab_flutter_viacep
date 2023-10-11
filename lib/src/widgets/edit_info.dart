@@ -1,44 +1,26 @@
 import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'edit_text.dart';
+import 'input_text.dart';
 
-class EditInfo extends StatefulWidget {
+class EditInfo extends StatelessWidget {
   const EditInfo({
     super.key,
     required this.index,
-    required this.controller,
-    required this.update,
   });
 
   final int index;
-  final ListedController controller;
-  final Function update;
-
-  @override
-  State<EditInfo> createState() => _EditInfoState();
-}
-
-class _EditInfoState extends State<EditInfo> {
-  final logradouro = TextEditingController();
-  final complemento = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    logradouro.text = widget.controller.cepList[widget.index].logradouro;
-    complemento.text = widget.controller.cepList[widget.index].complemento;
-  }
-
-  @override
-  void dispose() {
-    logradouro.dispose();
-    complemento.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final logradouro = TextEditingController();
+    final complemento = TextEditingController();
+    final controller = context.read<ListedController>();
+
+    logradouro.text = controller.cepList[index].logradouro;
+    complemento.text = controller.cepList[index].complemento;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -52,14 +34,14 @@ class _EditInfoState extends State<EditInfo> {
               Form(
                 child: Column(
                   children: [
-                    EditText(
+                    InputText(
                       controller: logradouro,
                       label: 'Logradouro',
                     ),
                     const SizedBox(
                       height: 30,
                     ),
-                    EditText(
+                    InputText(
                       controller: complemento,
                       label: 'Complemento',
                     ),
@@ -68,15 +50,14 @@ class _EditInfoState extends State<EditInfo> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        widget.controller.updateCep(
-                            widget.controller.cepList[widget.index].cep
-                                .replaceAll('-', ''),
-                            widget.controller.cepList[widget.index]
+                        controller.updateCep(
+                            controller.cepList[index].cep.replaceAll('-', ''),
+                            controller.cepList[index]
                                 .copyWith(
                                     logradouro: logradouro.text,
                                     complemento: complemento.text)
                                 .toMap());
-                        widget.update();
+                        controller.listedUpdate();
                         Navigator.of(context).pop();
                       },
                       child: const Text('Editar'),

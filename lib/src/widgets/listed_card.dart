@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/listed/listed_controller.dart';
 import 'edit_info.dart';
 
 class ListedCard extends StatelessWidget {
-  const ListedCard(
-      {super.key,
-      required this.controller,
-      required this.update,
-      required this.index});
+  const ListedCard({
+    super.key,
+    required this.index,
+  });
 
-  final ListedController controller;
-  final Function update;
   final int index;
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<ListedController>();
+
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,8 +41,6 @@ class ListedCard extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => EditInfo(
                         index: index,
-                        controller: controller,
-                        update: update,
                       ),
                     ),
                   );
@@ -53,7 +51,7 @@ class ListedCard extends StatelessWidget {
                 onPressed: () {
                   controller.deleteCep(
                       controller.cepList[index].cep.replaceAll('-', ''));
-                  update();
+                  controller.listedUpdate();
                 },
                 icon: const Icon(Icons.delete),
               )
