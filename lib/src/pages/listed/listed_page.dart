@@ -12,20 +12,20 @@ class ListedPage extends StatefulWidget {
 }
 
 class _ListedPageState extends State<ListedPage> {
-  late final ListedController _controller;
+  late final ListedController listedController;
 
   @override
   void initState() {
     super.initState();
-    _controller = context.read<ListedController>();
-    _controller.listedUpdate = () {
+    listedController = context.read<ListedController>();
+    listedController.listedUpdate = () {
       listedUpdate();
     };
     listedUpdate();
   }
 
   void listedUpdate() async {
-    await _controller.getAllCep();
+    await listedController.getAllCep();
     setState(() {});
   }
 
@@ -40,7 +40,7 @@ class _ListedPageState extends State<ListedPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: _controller.cepList.length,
+          itemCount: listedController.cepList.length,
           itemBuilder: (context, index) {
             return ListedCard(
               index: index,

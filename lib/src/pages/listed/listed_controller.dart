@@ -4,9 +4,9 @@ import '../../repositories/local/local_repository.dart';
 class ListedController {
   ListedController(this._repository);
 
-  var cepList = <Cep>[];
+  List<Cep> cepList = [];
   final LocalRepository _repository;
-  late final Function listedUpdate;
+  late Function listedUpdate;
 
   Future<void> updateCep(String key, Map<dynamic, dynamic> cep) async {
     await _repository.updateCep(key, cep);
