@@ -18,7 +18,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        Provider<HomeController>(
+        ChangeNotifierProvider<HomeController>(
           create: (_) => HomeController(
             RequestService(
               DioRepository(),
