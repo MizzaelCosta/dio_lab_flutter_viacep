@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../pages/listed/listed_controller.dart';
 import 'edit_info.dart';
@@ -8,14 +7,14 @@ class ListedCard extends StatelessWidget {
   const ListedCard({
     super.key,
     required this.index,
+    required this.listedController,
   });
 
   final int index;
+  final ListedController listedController;
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<ListedController>();
-
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,11 +23,11 @@ class ListedCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(controller.cepList[index].cep),
-              Text(controller.cepList[index].logradouro),
+              Text(listedController.cepList[index].cep),
+              Text(listedController.cepList[index].logradouro),
               Visibility(
-                visible: (controller.cepList[index].complemento != ''),
-                child: Text(controller.cepList[index].complemento),
+                visible: (listedController.cepList[index].complemento != ''),
+                child: Text(listedController.cepList[index].complemento),
               ),
             ]),
           ),
@@ -41,6 +40,7 @@ class ListedCard extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => EditInfo(
                         index: index,
+                        listedController: listedController,
                       ),
                     ),
                   );
@@ -49,9 +49,8 @@ class ListedCard extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  controller.deleteCep(
-                      controller.cepList[index].cep.replaceAll('-', ''));
-                  controller.listedUpdate();
+                  listedController.deleteCep(
+                      listedController.cepList[index].cep.replaceAll('-', ''));
                 },
                 icon: const Icon(Icons.delete),
               )

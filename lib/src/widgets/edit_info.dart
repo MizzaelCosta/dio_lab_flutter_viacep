@@ -8,9 +8,11 @@ class EditInfo extends StatelessWidget {
   const EditInfo({
     super.key,
     required this.index,
+    required this.listedController,
   });
 
   final int index;
+  final ListedController listedController;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,6 @@ class EditInfo extends StatelessWidget {
                                     logradouro: logradouro.text,
                                     complemento: complemento.text)
                                 .toMap());
-                        controller.listedUpdate();
                         Navigator.of(context).pop();
                       },
                       child: const Text('Editar'),
