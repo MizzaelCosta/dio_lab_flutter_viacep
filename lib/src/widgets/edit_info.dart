@@ -1,6 +1,5 @@
 import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'input_text.dart';
 
@@ -18,10 +17,9 @@ class EditInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final logradouro = TextEditingController();
     final complemento = TextEditingController();
-    final controller = context.read<ListedController>();
 
-    logradouro.text = controller.cepList[index].logradouro;
-    complemento.text = controller.cepList[index].complemento;
+    logradouro.text = listedController.cepList[index].logradouro;
+    complemento.text = listedController.cepList[index].complemento;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,9 +50,10 @@ class EditInfo extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        controller.updateCep(
-                            controller.cepList[index].cep.replaceAll('-', ''),
-                            controller.cepList[index]
+                        listedController.updateCep(
+                            listedController.cepList[index].cep
+                                .replaceAll('-', ''),
+                            listedController.cepList[index]
                                 .copyWith(
                                     logradouro: logradouro.text,
                                     complemento: complemento.text)
