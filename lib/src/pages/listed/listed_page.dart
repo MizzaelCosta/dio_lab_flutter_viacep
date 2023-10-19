@@ -13,7 +13,7 @@ class ListedPage extends StatefulWidget {
 }
 
 class _ListedPageState extends State<ListedPage> {
-  late final ListedController? listedController;
+  late final ListedController listedController;
 
   @override
   void initState() {
@@ -36,11 +36,11 @@ class _ListedPageState extends State<ListedPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: listedController!.cepList.length,
+          itemCount: listedController.cepList.length,
           itemBuilder: (context, index) {
             return ListedCard(
               index: index,
-              listedController: listedController!,
+              listedController: listedController,
             );
           },
         ),
