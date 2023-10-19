@@ -11,29 +11,34 @@ class HomeController extends ChangeNotifier {
 
   final RequestService _service;
 
-  TextEditingController? strCep;
   bool isLoading = false;
-  Cep? cepResponse;
+  Cep? response;
+  TextEditingController? _strCep;
 
-  void getCep(String cep) async {
-    loading(true);
-    cepResponse = await _service.getCep(cep);
-    emptyTextEditing();
-    loading(false);
+  TextEditingController get strCep {
+    if (_strCep == null) {
+      _strCep?.text = '';
+    }
+    return _strCep!;
   }
 
-  void loading(bool newValue) {
+  void setCep(TextEditingController cep) {
+    _strCep = cep;
+  }
+
+  void getCep() async {
+    _loading(true);
+    response = await _service.getCep(_strCep!.text);
+    _emptyTextEditing();
+    _loading(false);
+  }
+
+  void _loading(bool newValue) {
     isLoading = newValue;
     notifyListeners();
   }
 
-  void setTextEditing(TextEditingController cepEditing) {
-    strCep = cepEditing;
-  }
-
-  void emptyTextEditing() {
-    if (strCep != null) {
-      strCep!.text = '';
-    }
+  void _emptyTextEditing() {
+    strCep.text = '';
   }
 }

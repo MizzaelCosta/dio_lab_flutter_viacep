@@ -1,4 +1,5 @@
 import 'package:dio_lab_flutter_viacep/src/models/cep.dart';
+import 'package:dio_lab_flutter_viacep/src/services/request_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,14 +31,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    homeController = context.read<HomeController>();
-    homeController.setTextEditing(_strCep);
+    homeController = HomeController(context.read<RequestService>())
+      ..setCep(_strCep)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
   void dispose() {
     _strCep.dispose();
     _formKey.currentState!.dispose();
+    homeController.dispose();
     super.dispose();
   }
 
@@ -63,8 +68,8 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InputText(
                           label: 'Cep',
-                          sufixIcon: const SearchCep(),
-                          controller: homeController.strCep!,
+                          sufixIcon: SearchCep(homeController),
+                          controller: homeController.strCep,
                           centerAlign: true,
                           validator: Validator.length(
                             error: 'O Cep deve ter 8 dígitos.',
@@ -82,12 +87,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Visibility(
                     visible: homeController.isLoading ||
-                        homeController.cepResponse != null,
+                        homeController.response != null,
                     child: (homeController.isLoading)
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
-                        : const ShowCep(),
+                        : ShowCep(homeController),
                   ),
                 ],
               );
