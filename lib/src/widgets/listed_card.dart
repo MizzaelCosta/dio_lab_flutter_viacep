@@ -19,17 +19,22 @@ class ListedCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(listedController.cepList[index].cep),
-              Text(listedController.cepList[index].logradouro),
-              Visibility(
-                visible: (listedController.cepList[index].complemento != ''),
-                child: Text(listedController.cepList[index].complemento),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(listedController.cepList[index].cep),
+                  Text(listedController.cepList[index].logradouro),
+                  Visibility(
+                    visible:
+                        (listedController.cepList[index].complemento != ''),
+                    child: Text(listedController.cepList[index].complemento),
+                  ),
+                ],
               ),
-            ]),
+            ),
           ),
           Row(
             children: [
