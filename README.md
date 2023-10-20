@@ -12,7 +12,7 @@ Uma aplicação Flutter usando conceitos de Assincronismo, Armazenamento local e
 
 1. clone o repisitório.
    ```sh
-   git clone https://github.com/MizzaelCosta/dio-lab-flutter-create.git
+   git clone https://github.com/MizzaelCosta/dio_lab_flutter_viacep.git
    ```
    
 2. instale as dependencias:
