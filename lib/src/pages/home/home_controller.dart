@@ -13,32 +13,32 @@ class HomeController extends ChangeNotifier {
 
   bool isLoading = false;
   Cep? response;
-  TextEditingController? _strCep;
+  TextEditingController? _cep;
 
-  TextEditingController get strCep {
-    if (_strCep == null) {
-      _strCep?.text = '';
+  TextEditingController get cep {
+    if (_cep == null) {
+      _cep?.text = '';
     }
-    return _strCep!;
+    return _cep!;
   }
 
-  void setCep(TextEditingController cep) {
-    _strCep = cep;
+  void setCep(TextEditingController? value) {
+    if (value != null) {
+      _cep = value;
+      return;
+    }
+    _cep?.text = '';
   }
 
   void getCep() async {
     _loading(true);
-    response = await _service.getCep(_strCep!.text);
-    _emptyTextEditing();
+    response = await _service.getCep(_cep!.text);
+    setCep(null);
     _loading(false);
   }
 
   void _loading(bool newValue) {
     isLoading = newValue;
     notifyListeners();
-  }
-
-  void _emptyTextEditing() {
-    strCep.text = '';
   }
 }

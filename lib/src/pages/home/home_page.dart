@@ -25,14 +25,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
-  final _strCep = TextEditingController();
-  late final HomeController homeController;
+  final _cep = TextEditingController();
+  late final HomeController _homeController;
 
   @override
   void initState() {
     super.initState();
-    homeController = HomeController(context.read<RequestService>())
-      ..setCep(_strCep)
+    _homeController = HomeController(context.read<RequestService>())
+      ..setCep(_cep)
       ..addListener(() {
         setState(() {});
       });
@@ -40,9 +40,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _strCep.dispose();
+    _cep.dispose();
     _formKey.currentState!.dispose();
-    homeController.dispose();
+    _homeController.dispose();
     super.dispose();
   }
 
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ListenableBuilder(
-            listenable: homeController,
+            listenable: _homeController,
             builder: (_, __) {
               return ListView(
                 children: [
@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InputText(
                           label: 'Cep',
-                          sufixIcon: SearchCep(homeController),
-                          controller: homeController.strCep,
+                          sufixIcon: SearchCep(_homeController),
+                          controller: _homeController.cep,
                           centerAlign: true,
                           validator: Validator.length(
                             error: 'O Cep deve ter 8 dígitos.',
@@ -86,13 +86,13 @@ class _HomePageState extends State<HomePage> {
                     height: 50,
                   ),
                   Visibility(
-                    visible: homeController.isLoading ||
-                        homeController.response != null,
-                    child: (homeController.isLoading)
+                    visible: _homeController.isLoading ||
+                        _homeController.response != null,
+                    child: (_homeController.isLoading)
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
-                        : ShowCep(homeController),
+                        : ShowCep(_homeController),
                   ),
                 ],
               );
