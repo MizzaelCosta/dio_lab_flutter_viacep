@@ -1,8 +1,9 @@
-import 'package:dio_lab_flutter_viacep/src/models/cep.dart';
-import 'package:dio_lab_flutter_viacep/src/services/request_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/cep.dart';
+import '../../pages/home/home_state.dart';
+import '../../services/request_service.dart';
 import '../../utils/formatter.dart';
 import '../../utils/validator.dart';
 import '../../widgets/input_text.dart';
@@ -31,7 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _homeController = HomeController(context.read<RequestService>())
+    _homeController = HomeController(
+        service: context.read<RequestService>(),
+        state: context.read<HomeState>())
       ..setCep(_cep)
       ..addListener(() {
         setState(() {});
@@ -85,15 +88,17 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Visibility(
-                    visible: _homeController.isLoading ||
-                        _homeController.response != null,
-                    child: (_homeController.isLoading)
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : ShowCep(_homeController),
-                  ),
+                  (switch (_homeController.state.runtimeType) {
+                    HomeStateSuccess => ShowCep(_homeController),
+                    HomeStateLoading => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    HomeStateError => const Center(
+                        child: Text(
+                            'Cep NÃO encontrado. Verifique o CEP digitado.'),
+                      ),
+                    Type() => const Center(),
+                  })
                 ],
               );
             },
