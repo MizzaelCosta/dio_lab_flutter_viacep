@@ -1,6 +1,6 @@
-import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/listed/listed_controller.dart';
 import 'input_text.dart';
 
 class EditInfo extends StatelessWidget {

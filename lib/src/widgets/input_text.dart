@@ -1,6 +1,7 @@
-import 'package:dio_lab_flutter_viacep/src/utils/formatter.dart';
-import 'package:dio_lab_flutter_viacep/src/utils/validator.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/formatter.dart';
+import '../utils/validator.dart';
 
 class InputText extends StatelessWidget {
   const InputText({

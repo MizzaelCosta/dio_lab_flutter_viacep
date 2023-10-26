@@ -1,5 +1,6 @@
-import 'package:dio_lab_flutter_viacep/src/repositories/local/local_repository.dart';
 import 'package:hive/hive.dart';
+
+import '../../repositories/local/local_repository.dart';
 
 class HiveRepository implements LocalRepository {
   final String boxName = 'storageBox';

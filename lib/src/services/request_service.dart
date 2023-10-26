@@ -1,7 +1,6 @@
-import 'package:dio_lab_flutter_viacep/src/repositories/api/api_repository.dart';
-import 'package:dio_lab_flutter_viacep/src/repositories/local/local_repository.dart';
-
 import '../models/cep.dart';
+import '../repositories/api/api_repository.dart';
+import '../repositories/local/local_repository.dart';
 
 class RequestService {
   const RequestService(

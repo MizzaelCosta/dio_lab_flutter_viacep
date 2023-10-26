@@ -1,8 +1,8 @@
-import 'package:dio_lab_flutter_viacep/src/pages/listed/listed_controller.dart';
-import 'package:dio_lab_flutter_viacep/src/repositories/local/local_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../pages/listed/listed_controller.dart';
+import '../../repositories/local/local_repository.dart';
 import '../../widgets/listed_card.dart';
 
 class ListedPage extends StatefulWidget {

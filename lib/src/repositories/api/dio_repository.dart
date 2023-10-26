@@ -1,9 +1,10 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:dio/dio.dart';
-import 'package:dio_lab_flutter_viacep/src/models/cep.dart';
-import 'package:dio_lab_flutter_viacep/src/repositories/api/api_repository.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/cep.dart';
+import '../../repositories/api/api_repository.dart';
 
 class DioRepository implements ApiRepository {
   @override
