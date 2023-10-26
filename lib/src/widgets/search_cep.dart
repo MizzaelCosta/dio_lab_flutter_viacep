@@ -1,13 +1,12 @@
-import 'package:dio_lab_flutter_viacep/src/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
 
 class SearchCep extends StatelessWidget {
   const SearchCep(
-    this.homeController, {
+    this.onPressed, {
     super.key,
   });
 
-  final HomeController homeController;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,8 @@ class SearchCep extends StatelessWidget {
       icon: const Icon(
         Icons.search,
       ),
-      onPressed: () async {
-        homeController.getCep.call();
+      onPressed: () {
+        onPressed;
       },
     );
   }

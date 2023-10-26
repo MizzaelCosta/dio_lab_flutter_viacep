@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InputText(
                           label: 'Cep',
-                          sufixIcon: SearchCep(_homeController),
+                          sufixIcon: SearchCep(_homeController.getCep),
                           controller: _homeController.cep,
                           centerAlign: true,
                           validator: Validator.length(
