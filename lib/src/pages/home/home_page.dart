@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/cep.dart';
 import '../../pages/home/home_state.dart';
 import '../../services/request_service.dart';
 import '../../utils/formatter.dart';
@@ -11,9 +10,6 @@ import '../../widgets/search_cep.dart';
 import '../../widgets/show_cep.dart';
 import '../listed/listed_page.dart';
 import 'home_controller.dart';
-
-typedef UpdateFunction = void Function(
-    {bool isLoading, Cep? response, required String text});
 
 class HomePage extends StatefulWidget {
   const HomePage({
