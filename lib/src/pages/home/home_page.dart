@@ -7,7 +7,6 @@ import '../../utils/formatter.dart';
 import '../../utils/validator.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/search_cep.dart';
-import '../../widgets/show_cep.dart';
 import '../listed/listed_page.dart';
 import 'home_controller.dart';
 
@@ -32,9 +31,7 @@ class _HomePageState extends State<HomePage> {
         service: context.read<RequestService>(),
         state: context.read<HomeState>())
       ..setCep(_cep)
-      ..addListener(() {
-        setState(() {});
-      });
+      ..addListener(_onUpdateState);
   }
 
   @override
@@ -43,6 +40,10 @@ class _HomePageState extends State<HomePage> {
     _formKey.currentState!.dispose();
     _homeController.dispose();
     super.dispose();
+  }
+
+  void _onUpdateState() {
+    (context as Element).markNeedsBuild();
   }
 
   @override
@@ -55,50 +56,30 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ListenableBuilder(
-            listenable: _homeController,
-            builder: (_, __) {
-              return ListView(
-                children: [
-                  Form(
-                    key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    child: Column(
-                      children: [
-                        InputText(
-                          label: 'Cep',
-                          sufixIcon: SearchCep(_homeController.getCep),
-                          controller: _homeController.cep,
-                          centerAlign: true,
-                          validator: Validator.length(
-                            error: 'O Cep deve ter 8 dígitos.',
-                            length: 8,
-                          ),
-                          formatter: const [
-                            Formatter(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  (switch (_homeController.state.runtimeType) {
-                    HomeStateSuccess =>
-                      ShowCep(_homeController.state.response!),
-                    HomeStateLoading => const Center(
-                        child: CircularProgressIndicator(),
+          child: ListView(
+            children: [
+              Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    InputText(
+                      label: 'Cep',
+                      sufixIcon: SearchCep(_homeController.getCep),
+                      controller: _homeController.cep,
+                      centerAlign: true,
+                      validator: Validator.length(
+                        error: 'O Cep deve ter 8 dígitos.',
+                        length: 8,
                       ),
-                    HomeStateError => const Center(
-                        child: Text(
-                            'CEP NÃO encontrado. Verifique o CEP digitado.'),
-                      ),
-                    Type() => const Center(),
-                  })
-                ],
-              );
-            },
+                      formatter: const [Formatter()],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 50),
+              _homeController.state.view(),
+            ],
           ),
         ),
       ),

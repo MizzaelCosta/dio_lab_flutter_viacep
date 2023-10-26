@@ -36,7 +36,7 @@ class HomeController extends ChangeNotifier {
     _response = await _request();
     (_response == null || (_response != null && _response!.erro))
         ? _setState(HomeStateError(null))
-        : _setState(HomeStateSuccess(_response));
+        : _setState(HomeStateSuccess(_response!));
   }
 
   void _setState(HomeState newState) {
