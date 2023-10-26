@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../pages/home/home_controller.dart';
+import '../../src/models/cep.dart';
 
 class ShowCep extends StatelessWidget {
   const ShowCep(
-    this.homeController, {
+    this.cep, {
     super.key,
   });
 
-  final HomeController homeController;
+  final Cep cep;
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +16,17 @@ class ShowCep extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Cep: ${homeController.state.response!.cep}'),
-        Text('Rua: ${homeController.state.response!.logradouro}'),
+        Text('Cep: ${cep.cep}'),
+        Text('Rua: ${cep.logradouro}'),
         Visibility(
-          visible: homeController.state.response!.complemento.isNotEmpty,
+          visible: cep.complemento.isNotEmpty,
           child: Text(
-            'Complemento: ${homeController.state.response!.complemento}',
+            'Complemento: ${cep.complemento}',
           ),
         ),
-        Text('Bairro: ${homeController.state.response!.bairro}'),
-        Text('Cidade: ${homeController.state.response!.localidade}'),
-        Text('DDD: ${homeController.state.response!.ddd}'),
+        Text('Bairro: ${cep.bairro}'),
+        Text('Cidade: ${cep.localidade}'),
+        Text('DDD: ${cep.ddd}'),
       ],
     );
   }

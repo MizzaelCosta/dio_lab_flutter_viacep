@@ -85,13 +85,14 @@ class _HomePageState extends State<HomePage> {
                     height: 50,
                   ),
                   (switch (_homeController.state.runtimeType) {
-                    HomeStateSuccess => ShowCep(_homeController),
+                    HomeStateSuccess =>
+                      ShowCep(_homeController.state.response!),
                     HomeStateLoading => const Center(
                         child: CircularProgressIndicator(),
                       ),
                     HomeStateError => const Center(
                         child: Text(
-                            'Cep NÃO encontrado. Verifique o CEP digitado.'),
+                            'CEP NÃO encontrado. Verifique o CEP digitado.'),
                       ),
                     Type() => const Center(),
                   })

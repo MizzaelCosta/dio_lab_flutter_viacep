@@ -6,7 +6,7 @@ class SearchCep extends StatelessWidget {
     super.key,
   });
 
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,7 @@ class SearchCep extends StatelessWidget {
       icon: const Icon(
         Icons.search,
       ),
-      onPressed: () {
-        onPressed;
-      },
+      onPressed: onPressed,
     );
   }
 }
