@@ -19,9 +19,7 @@ class _ListedPageState extends State<ListedPage> {
   void initState() {
     super.initState();
     listedController = ListedController(context.read<LocalRepository>())
-      ..addListener(() {
-        setState(() {});
-      })
+      ..addListener(_onUpdateState)
       ..getAllCep();
   }
 
@@ -29,6 +27,10 @@ class _ListedPageState extends State<ListedPage> {
   void dispose() {
     listedController.dispose();
     super.dispose();
+  }
+
+  void _onUpdateState() {
+    (context as Element).markNeedsBuild();
   }
 
   @override

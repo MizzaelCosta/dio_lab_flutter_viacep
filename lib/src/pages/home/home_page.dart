@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 50),
-              _homeController.state.view(),
+              _homeController.state.build(),
             ],
           ),
         ),
